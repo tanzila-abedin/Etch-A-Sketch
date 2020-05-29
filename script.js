@@ -1,57 +1,48 @@
+const grid = document.querySelector(".gridContainer")
+const userInput = document.getElementById("quantity");
+const resetButton = document.querySelector(".reset");
 
-html{
-    text-align: center;
-    font-family: cursive;
+createGrid = () => {
+    for (let i = 0; i< 256; i++) {
+        const div = document.createElement("div");
+        div.classList.add("square");
+        grid.appendChild(div);
+    }
+};
 
-}
+updateGrid = () => {
+    grid.innerHTML = "";
+    grid.style.setProperty(
+        "grid-template-columns",
+        `repeat(${userInput.value}, 2fr)`
+     );
+     grid.style.setProperty(
+         "grid-template-rows",
+         `repeat(${userInput.value},2fr)`
+     );
+     for (let i = 0; i < userInput.value * userInput.value; i++) {
+         const div = document.createElement("div");
+         div.classList.add("square");
+         grid.appendChild(div);
+     }
+    }
+const square = document.querySelector("div");
+square.addEventListener("mouseover",function(event){
+    event.target.classList.replace("square","color");
+});
 
-body{
-background: rgb(214, 210, 210);
+userInput.addEventListener("change",updateGrid);
 
+resetButton.addEventListener("click",function(){
+    grid.innerHTMLL="";
+    userInput.value="";
+    grid.style.setproperty("grid-template-columns", `repeat(16,2fr)`);
+    grid.style.setproperty("grid-template-rows", `repeat(16,2fr)`);
+    createGrid();
 
-}
-h1 {
-    border: 0;
-    padding: 0;
-    font-size: 2em;
-    text-align: center;
-    font-family: Arial;
-    font-style: italic;
-    font-weight: bold;
-}
+});
 
-.right {
-    float: center;
-    float: bottom ;
-    flex-wrap: wrap;
-}
+createGrid();
 
-.page {
-    display: inline-block;
-    margin: 0px;
-    padding: 0px;
-}
-
-.square {
-    background-color: white;
-    border: 1px solid gray;
-}
-
-.color {
-    background-color: black;
-    border: 1px solid black
-}
-
-.gridContainer {
-    margin-top: 15px;
-    margin-right: 40px;
-    display: inline-grid;
-    grid-template-columns: repeat(16,2fr);
-    grid-template-rows: repeat(16,2fr) ;
-    border: 15px solid rgb(165, 134, 194);
-    border-radius: 5px;
-    height: 500px;      
-    width: 800px;
-}
 
 
